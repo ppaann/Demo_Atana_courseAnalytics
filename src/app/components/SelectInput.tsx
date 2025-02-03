@@ -23,7 +23,7 @@ export default function Example() {
   const [selected, setSelected] = useState(courses[0]);
 
   return (
-    <div className='fixed top-16 w-72'>
+    <div className='w-full md:w-96'>
       <Listbox value={selected} onChange={setSelected}>
         <Label className='block text-sm/6 font-medium text-gray-900'>
           Check Performance of
