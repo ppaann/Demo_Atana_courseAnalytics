@@ -1,13 +1,13 @@
 'use client';
 
 const courses = [
-  { id: 'ABX', code: 'HWYD', name: 'How Was Your Day' },
-  { id: 'USH', code: 'USH', name: 'Unintentional Still Hurts' },
-  { id: 'OFA', code: 'OFA', name: 'Once and For All' },
-  { id: 'UC', code: 'UC', name: 'Uncomfortable Conversation' },
-  { id: 'GRAWV', code: 'GRAWV', name: 'Getting Real About Workplace Violence' },
+  { id: 'HWYD', name: 'How Was Your Day' },
+  { id: 'USH', name: 'Unintentional Still Hurts' },
+  { id: 'OFA', name: 'Once and For All' },
+  { id: 'UC', name: 'Uncomfortable Conversation' },
+  { id: 'GRAWV', name: 'Getting Real About Workplace Violence' },
 ];
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import {
   Label,
   Listbox,
@@ -18,21 +18,45 @@ import {
 } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { twMerge } from 'tailwind-merge';
+import { CourseName } from '@/types/dashboard';
 
-export default function Example() {
-  const [selected, setSelected] = useState(courses[0]);
+interface SelectInputProps {
+  value: CourseName | null;
+  onChange: (value: CourseName) => void;
+  placeholder?: string;
+  label?: string;
+}
 
+export default function SelectInput({
+  value,
+  onChange,
+  placeholder,
+  label,
+}: SelectInputProps) {
   return (
     <div className='w-full md:w-96'>
-      <Listbox value={selected} onChange={setSelected}>
+      <Listbox
+        value={value}
+        onChange={(course) => {
+          if (course) {
+            onChange(course);
+          }
+        }}
+      >
         <Label className='block text-sm/6 font-medium text-gray-900'>
-          Check Performance of
+          {label}
         </Label>
         <div className='relative mt-1'>
           <ListboxButton className='relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md outline outline-1 -outline-offset-1 outline-gray-300  focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm'>
             <span className='col-start-1 row-start-1 flex items-center gap-3 pr-6'>
-              <span>{selected.id}</span>
-              <span className='block truncate'>{selected.name}</span>
+              {value ? (
+                <>
+                  <span>{value.id}</span>
+                  <span className='block truncate'>{value.name}</span>
+                </>
+              ) : (
+                <span className='text-sm text-gray-400'>{placeholder}</span>
+              )}
             </span>
             <span className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2'>
               <ChevronUpDownIcon
@@ -47,7 +71,7 @@ export default function Example() {
             leaveFrom='opacity-100'
             leaveTo='opacity-0'
           >
-            <ListboxOptions className='absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm'>
+            <ListboxOptions className='absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm z-20'>
               {courses.map((course, index) => (
                 <ListboxOption
                   key={index}
