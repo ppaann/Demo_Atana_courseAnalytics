@@ -9,7 +9,13 @@ export const useCourseData = () => {
   const { state, dispatch } = useDashboard();
 
   const handleSubmit = async () => {
-    if (!state.course) return;
+    if (!state.course) {
+      dispatch({
+        type: 'SET_ERROR',
+        payload: 'Course is required! Select a course.',
+      });
+      return;
+    }
 
     try {
       dispatch({ type: 'FETCH_START' });
@@ -34,13 +40,16 @@ export const useCourseData = () => {
     }
   };
 
+  const setCourse = (course: CourseName) => {
+    dispatch({ type: 'SET_COURSE', payload: course });
+  };
+
   return {
     course: state.course,
     data: state.data,
     isLoading: state.isLoading,
     error: state.error,
-    setCourse: (course: CourseName) =>
-      dispatch({ type: 'SET_COURSE', payload: course }),
+    setCourse,
     handleSubmit,
   };
 };

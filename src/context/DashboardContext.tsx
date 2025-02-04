@@ -12,6 +12,7 @@ type State = {
 
 type Action =
   | { type: 'SET_COURSE'; payload: CourseName }
+  | { type: 'SET_ERROR'; payload: string }
   | { type: 'FETCH_START' }
   | { type: 'FETCH_SUCCESS'; payload: CourseData }
   | { type: 'FETCH_ERROR'; payload: string };
@@ -26,7 +27,9 @@ const initialState: State = {
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'SET_COURSE':
-      return { ...state, course: action.payload };
+      return { ...state, course: action.payload, error: null };
+    case 'SET_ERROR':
+      return { ...state, isLoading: false, error: action.payload };
     case 'FETCH_START':
       return { ...state, isLoading: true, error: null, data: null };
     case 'FETCH_SUCCESS':
