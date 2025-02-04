@@ -18,12 +18,12 @@ export default function ProgressBar({
       <div className='relative w-full h-6 bg-gray-200 rounded-full overflow-hidden'>
         {/* Progress Fill */}
         <div
-          className='absolute left-0 top-0 h-full bg-blue-200 rounded-full'
+          className='absolute left-0 top-0 h-full bg-indigo-200 rounded-full'
           style={{ width: `${percentage}%` }}
         ></div>
         {/* Percentage Label */}
         <span
-          className={`absolute top-1/2 transform px-2 outline outline-blue-500 rounded-md -translate-y-1/2 text-xs font-semibold text-white bg-blue-600  ${
+          className={`absolute top-1/2 transform px-2 outline outline-indigo-600 rounded-md -translate-y-1/2 text-xs font-semibold text-white bg-indigo-600  ${
             percentage < 15 ? '-translate-x-none' : '-translate-x-full'
           }`}
           style={{ left: percentage < 15 ? 0 : `${percentage}%` }}
