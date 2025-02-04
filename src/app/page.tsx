@@ -20,7 +20,7 @@ const DashboardPage = () => {
               value={course}
               onChange={setCourse}
               placeholder='Select a Course ...'
-              label='Check Performance of'
+              label='Review Course Metrics'
             />
             <ClientButton onClick={handleSubmit}>Submit</ClientButton>
           </div>
